@@ -1,20 +1,37 @@
-const fs = require("fs");
+// const fs = require('fs')
 
-//Synchronous blocking
-// const text = fs.readFileSync("txt/test.txt", "utf-8");
-// console.log(text);
+// fs.readFile('txt/final.txt','utf-8',(err,data)=>{
+//   console.log(data)
+// })
 
-//Synchronous blocking
-// const textOutput = `This is output text from js file, ${text}.\n Created on ${Date.now()}`;
-// fs.writeFileSync("txt/test2.txt", textOutput);
+// console.log('Reading file')
 
-//Asycn non-blocking
-fs.readFile("txt/start.txt", "utf-8", (err, data1) => {
-  fs.readFile(`txt/${data1}.txt`, "utf-8", (err, data2) => {
-    console.log(data2);
-    fs.writeFile("txt/final.txt", data2, (err) => {
-      console.log("File has been written");
-    });
-  });
+// setTimeout(() => {
+//   console.log('This is time out')
+// }, 3000);
+
+const http = require('http');
+const url = require('url');
+const server = http.createServer((req,res)=>{
+  const path = req.url;
+  console.log(path)
+  switch(path){
+    case "/" :
+      res.end('Overview')
+      break;
+    case "/overview":
+      res.end('Overview')
+      break;
+    case "/product":
+      res.end('Product page')
+      break;
+    default:
+      res.writeHead(404)  
+      res.end('Page not found')
+      break;
+  }
+})
+
+server.listen(8080,'localhost',()=>{
+  console.log('Server listening on port 8080')
 });
-console.log("Reading");
